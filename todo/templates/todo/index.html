@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Todo app{% endblock title %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="header">
+        <div class="heading">
+            <h1>Hello Visitor</h1>
+        </div>
+    </div>
+
+    <div class="messages">
+        {% for msg in messages %}
+            <div class="msg {{ msg.tags }}" id="msg-{{ forloop.counter }}">
+                <span>
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <i class="fa-solid fa-circle-info"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    {% else %}
+                        <i class="fa-solid fa-circle-info"></i>
+                    {% endif %}
+                </span>
+                <span>{{ msg }}</span>
+                <span onClick="removeMsg('msg-{{ forloop.counter}}')"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="nav">
+        <p>To continue with the website: </p>
+        <div class="button-pair">
+            <a href="{% url 'todo:signin' %}" class="button-secondary">Signin</a>
+            <a href="{% url 'todo:signup' %}" class="button-primary">Signup</a>
+        </div>
+    </div>
+</div>
+
+{% endblock content %}

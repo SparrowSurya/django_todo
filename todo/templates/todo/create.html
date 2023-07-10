@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+
+{% block title %}Create Task{% endblock title %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="header">
+        <div class="heading">
+            <h1>Create Task</h1>
+        </div>
+    </div>
+
+    <div class="messages">
+        {% for msg in messages %}
+            <div class="msg {{ msg.tags }}" id="msg-{{ forloop.counter }}">
+                <span>
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <i class="fa-solid fa-circle-info"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    {% else %}
+                        <i class="fa-solid fa-circle-info"></i>
+                    {% endif %}
+                </span>
+                <span>{{ msg }}</span>
+                <span onClick="removeMsg('msg-{{ forloop.counter}}')"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="content">
+        <form action="{% url 'todo:create' %}" method="post">
+            {% csrf_token %}
+
+            <div class="entry">
+                <label for="title">Title</label>
+                <input type="text" id="title" name="title" required>
+            </div>
+
+            <div class="entry">
+                <label for="description">Description</label>
+                <textarea name="description" id="description" cols="30" rows="10"></textarea>
+            </div>
+
+            <div class="button-pair">
+                <button type="submit" class="button-primary">Create</button>
+                <a href="{% url 'todo:index' %}" class="button-secondary">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}

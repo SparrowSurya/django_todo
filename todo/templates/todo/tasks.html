@@ -1,0 +1,75 @@
+{% extends 'base.html' %}
+
+{% block title %}Tasks{% endblock title %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="header">
+        <div class="heading">
+            <h1>{{ user.username|title }} Tasks</h1>
+            <a href="{% url 'todo:signout' %}">
+                <i class="fa-solid fa-right-from-bracket"></i>
+            </a>
+        </div>
+    </div>
+
+    <div class="messages">
+        {% for msg in messages %}
+            <div class="msg {{ msg.tags }}" id="msg-{{ forloop.counter }}">
+                <span>
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <i class="fa-solid fa-circle-info"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    {% else %}
+                        <i class="fa-solid fa-circle-info"></i>
+                    {% endif %}
+                </span>
+                <span>{{ msg }}</span>
+                <span onClick="removeMsg('msg-{{ forloop.counter}}')"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="tasks">
+        <form action="{% url 'todo:search' %}" method="get" class="search-bar">
+            <input type="text" name="search" value="{{ search_text }}" placeholder="search" required>
+            <button type="submit">
+                <i class="fa-solid fa-magnifying-glass"></i>
+            </button>
+        </form>
+
+        <div class="create-task">
+            <a href="{% url 'todo:create' %}">
+                <i class="fa-solid fa-plus"></i>
+                <span>New Task</span>
+            </a>
+        </div>
+
+        <br>
+        <p class="task-title">Tasks</p>
+
+        {% for task in tasks %}
+            <div class="task">
+                {% if task.is_finished %}
+                    <span class="button-icon icon-check"><i class="fa-regular fa-circle-check"></i></span>
+                    <span class="title finished">{{ task.title }}</span>
+                {% else %}
+                    <span class="button-icon icon-uncheck"><i class="fa-regular fa-circle"></i></span>
+                    <span class="title">{{ task.title }}</span>
+                {% endif %}
+                <span><a href="{% url 'todo:update' task.id %}" class="button-icon"><i class="fa-regular fa-pen-to-square"></i></a></span>
+                <span><a href="{% url 'todo:delete' task.id %}" class="button-icon"><i class="fa-regular fa-trash-can"></i></a></span>
+            </div>
+        {% empty %}
+            <p>You have no tasks</p>
+        {% endfor %}
+    </div>
+</div>
+
+{% endblock content %}

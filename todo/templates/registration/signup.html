@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+
+{% block title %}Todo - Signup{% endblock title %}
+
+{% block content %}
+
+<div class="wrapper">
+    <div class="header">
+        <div class="heading">
+            <h1>Signup</h1>
+        </div>
+    </div>
+
+    <div class="messages">
+        {% for msg in messages %}
+            <div class="msg {{ msg.tags }}" id="msg-{{ forloop.counter }}">
+                <span>
+                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+                        <i class="fa-solid fa-circle-info"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+                        <i class="fa-solid fa-thumbs-up"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+                        <i class="fa-solid fa-triangle-exclamation"></i>
+                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+                        <i class="fa-solid fa-circle-exclamation"></i>
+                    {% else %}
+                        <i class="fa-solid fa-circle-info"></i>
+                    {% endif %}
+                </span>
+                <span>{{ msg }}</span>
+                <span onClick="removeMsg('msg-{{ forloop.counter}}')"><i class="fa-solid fa-xmark"></i></span>
+            </div>
+        {% endfor %}
+    </div>
+
+    <div class="content">
+        <form action="{% url 'todo:signup' %}" method='post'>
+            {% csrf_token %}
+
+            <div class="entry">
+                <label for="username">Username</label>
+                <input type="text" placeholder='username' name='username' value="{{ username }}" required>
+            </div>
+
+            <div class="entry">
+                <label for="email">Email</label>
+                <input type="email" placeholder='exmaple@gmail.com' name='email' value="{{ email }}" required>
+            </div>
+
+            <div class="entry">
+                <label for="pswd1">Password</label>
+                <input type="password" name='pswd1' placeholder="Password" required>
+            </div>
+
+            <div class="entry">
+                <label for="pswd2">Confirm Password</label>
+                <input type="password" name='pswd2' placeholder="Password" required>
+            </div>
+
+            <div class="entry">
+                <a href="{% url 'todo:signin' %}">Already Registered?</a>
+            </div>
+
+            <div class="button-pair">
+                <button type='submit' class="button-primary">Signup</button>
+                <a href="{% url 'todo:index' %}" class="button-secondary">Back</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+{% endblock content %}
