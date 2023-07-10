@@ -1,6 +1,6 @@
 <div align="center">
 <h1>Django todo app</h1>
-<em>a small django prject</em>
+<em>a small django project</em>
 </div>
 
 
