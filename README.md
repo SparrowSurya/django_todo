@@ -37,46 +37,46 @@ python manage.py runserver
 
 <div align="center">
     <p>Index page</p>
-    <img src=",/demo/index.png" alt="index page">
+    <img src="./demo/index.png" alt="index page">
 </div>
-
+<br>
 <div align="center">
     <p>Signup page</p>
-    <img src=",/demo/signup.png" alt="signup page">
+    <img src="./demo/signup.png" alt="signup page">
 </div>
-
+<br>
 <div align="center">
     <p>Signin page</p>
-    <img src=",/demo/signin.png" alt="signin page">
+    <img src="./demo/signin.png" alt="signin page">
 </div>
-
+<br>
 <div align="center">
     <p>Tasks page</p>
-    <img src=",/demo/tasks.png" alt="tasks page">
+    <img src="./demo/tasks.png" alt="tasks page">
 </div>
-
+<br>
 <div align="center">
     <p>Task create page</p>
-    <img src=",/demo/create.png" alt="task create page">
+    <img src="./demo/create.png" alt="task create page">
 </div>
-
+<br>
 <div align="center">
     <p>Task update page</p>
-    <img src=",/demo/update.png" alt="task update page">
+    <img src="./demo/update.png" alt="task update page">
 </div>
-
+<br>
 <div align="center">
     <p>Task delete page</p>
-    <img src=",/demo/delete.png" alt="task delete page">
+    <img src="./demo/delete.png" alt="task delete page">
 </div>
-
+<br>
 <div align="center">
     <p>Task search</p>
-    <img src=",/demo/search.png" alt="task search page">
+    <img src="./demo/search.png" alt="task search page">
 </div>
-
+<br>
 <div align="center">
     <p>Message popup</p>
-    <img src=",/demo/message.png" alt="message popup">
+    <img src="./demo/message.png" alt="message popup">
 </div>
 
