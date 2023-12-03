@@ -7,8 +7,10 @@ from django.contrib import messages
 
 from .models import Task
 
+from typing import Optional
 
-def validate_signup_fields(username: str, email: str, pswd1: str, pswd2: str) -> str | None:
+
+def validate_signup_fields(username: str, email: str, pswd1: str, pswd2: str) -> Optional[str]:
     if not username:
         return 'Username field is empty'
     elif not username.isalnum():
