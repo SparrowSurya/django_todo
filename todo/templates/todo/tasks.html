@@ -1,75 +1,61 @@
 {% extends 'base.html' %}
 
-{% block title %}Tasks{% endblock title %}
+{% block title %}Tasks | Todo{% endblock title %}
 
 {% block content %}
 
-<div class="wrapper">
-    <div class="header">
-        <div class="heading">
-            <h1>{{ user.username|title }} Tasks</h1>
-            <a href="{% url 'todo:signout' %}">
-                <i class="fa-solid fa-right-from-bracket"></i>
-            </a>
-        </div>
+<div class="container mt-5">
+
+    <div class="row position-relative">
+        <h1 class="text-center">{{ user.username|title }}&apos;s Tasks</h1>
+        <a href="{% url 'todo:signout' %}" class="text-secondary text-end position-absolute top-50">
+            <i class="fa-solid fa-right-from-bracket"></i>
+        </a>
     </div>
 
-    <div class="messages">
-        {% for msg in messages %}
-            <div class="msg {{ msg.tags }}" id="msg-{{ forloop.counter }}">
-                <span>
-                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
-                        <i class="fa-solid fa-circle-info"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                    {% else %}
-                        <i class="fa-solid fa-circle-info"></i>
-                    {% endif %}
-                </span>
-                <span>{{ msg }}</span>
-                <span onClick="removeMsg('msg-{{ forloop.counter}}')"><i class="fa-solid fa-xmark"></i></span>
-            </div>
-        {% endfor %}
-    </div>
+    <hr />
 
-    <div class="tasks">
-        <form action="{% url 'todo:search' %}" method="get" class="search-bar">
-            <input type="text" name="search" value="{{ search_text }}" placeholder="search" required>
-            <button type="submit">
-                <i class="fa-solid fa-magnifying-glass"></i>
-            </button>
-        </form>
-
-        <div class="create-task">
-            <a href="{% url 'todo:create' %}">
+    <div class="row justify-content-between g-3">
+        <div class="col-auto">
+            <a href="{% url 'todo:create' %}" class="btn btn-outline-primary">
                 <i class="fa-solid fa-plus"></i>
                 <span>New Task</span>
             </a>
         </div>
-
-        <br>
-        <p class="task-title">Tasks</p>
-
-        {% for task in tasks %}
-            <div class="task">
-                {% if task.is_finished %}
-                    <span class="button-icon icon-check"><i class="fa-regular fa-circle-check"></i></span>
-                    <span class="title finished">{{ task.title }}</span>
-                {% else %}
-                    <span class="button-icon icon-uncheck"><i class="fa-regular fa-circle"></i></span>
-                    <span class="title">{{ task.title }}</span>
-                {% endif %}
-                <span><a href="{% url 'todo:update' task.id %}" class="button-icon"><i class="fa-regular fa-pen-to-square"></i></a></span>
-                <span><a href="{% url 'todo:delete' task.id %}" class="button-icon"><i class="fa-regular fa-trash-can"></i></a></span>
-            </div>
-        {% empty %}
-            <p>You have no tasks</p>
-        {% endfor %}
+        <div class="col-auto">
+            <form action="{% url 'todo:search' %}" method="GET" class="input-group w-100 d-flex flex-row">
+                <input type="search" name="search" value="{{ search_text }}" class="form-control mr-3" required placeholder="search" />
+                <button type="submit" class="btn btn-outline-secondary">search</button>
+            </form>
+        </div>
     </div>
+
+    <hr />
+
+    <div class="row">
+        {% for task in tasks %}
+            <div class="col-md-4 col-sm-12 mb-4 d-flex">
+                <div class="card position-relative flex-fill">
+                    <div class="card-body {% if task.is_finished %}text-decoration-line-through text-secondary-emphasis{% endif %}">
+                        <h5 class="card-title">{{ task.title|capfirst }}</h5>
+                        <p class="card-description">{{ task.description }}</p>
+                    </div>
+                    <div class="card-icons">
+                        <a href="{% url 'todo:update' task.id %}" class="icon-link link-secondary link-underline-dark">
+                            <i class="fa fa-edit"></i>
+                        </a>
+                        <a href="{% url 'todo:delete' task.id %}" class="icon-link link-secondary link-underline-dark">
+                            <i class="fa fa-trash-alt"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        {% if tasks|length == 0 %}
+            <p class="text-warning text-center fs-5">You haven&apos;t added any tasks yet!</p>
+        {% endif %}
+    </div>
+
 </div>
 
 {% endblock content %}

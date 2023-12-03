@@ -1,43 +1,15 @@
 {% extends 'base.html' %}
 
-{% block title %}Todo app{% endblock title %}
+{% block title %}Home | Todo{% endblock title %}
 
 {% block content %}
 
-<div class="wrapper">
-    <div class="header">
-        <div class="heading">
-            <h1>Hello Visitor</h1>
-        </div>
-    </div>
-
-    <div class="messages">
-        {% for msg in messages %}
-            <div class="msg {{ msg.tags }}" id="msg-{{ forloop.counter }}">
-                <span>
-                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
-                        <i class="fa-solid fa-circle-info"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                    {% else %}
-                        <i class="fa-solid fa-circle-info"></i>
-                    {% endif %}
-                </span>
-                <span>{{ msg }}</span>
-                <span onClick="removeMsg('msg-{{ forloop.counter}}')"><i class="fa-solid fa-xmark"></i></span>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class="nav">
-        <p>To continue with the website: </p>
-        <div class="button-pair">
-            <a href="{% url 'todo:signin' %}" class="button-secondary">Signin</a>
-            <a href="{% url 'todo:signup' %}" class="button-primary">Signup</a>
+<div class="container-fluid d-flex align-items-center justify-content-center h-100">
+    <div class="card" style="width: 30rem;">
+        <div class="card-body text-center">
+            <h1>Todo App</h1>
+            <p>Please signin to continue with the website.</p>
+            <a href="{% url 'todo:signin' %}" class="btn btn-primary px-3">Signin</a>
         </div>
     </div>
 </div>
