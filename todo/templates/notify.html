@@ -1,0 +1,19 @@
+<div class="d-flex flex-column align-items-right" style="position: absolute; top: 5px; right: 5px">
+  {% for msg in messages %}
+    <div class="alert alert-light alert-dismissible d-flex align-items-center fade show" role="alert">
+        {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
+            <i class="fas fa-info-circle"></i>
+        {% elif msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
+            <i class="fas fa-thumbs-up"></i>
+        {% elif msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
+            <i class="fas fa-exclamation-triangle"></i>
+        {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+            <i class="fas fa-exclamation-circle"></i>
+        {% else %}
+            <i class="fas fa-info-circle"></i>
+        {% endif %}
+        <span style="margin-left: 1rem;">{{ msg }}</span>
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+  {% endfor %}
+</div>

@@ -1,57 +1,37 @@
 {% extends 'base.html' %}
 
-{% block title %}Create Task{% endblock title %}
+{% block title %}Create Task | Todo{% endblock title %}
 
 {% block content %}
 
-<div class="wrapper">
-    <div class="header">
-        <div class="heading">
-            <h1>Create Task</h1>
+<div class="container-fluid center-content">
+    <div class="container mt-5 mb-5">
+        <div class="row justify-content-center">
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h3>Create Task</h3>
+                    </div>
+                    <div class="card-body">
+                        <form action="{% url 'todo:create' %}" method="post">
+                            {% csrf_token %}
+                            <div class="form-group">
+                                <label for="task-title">Title:</label>
+                                <input type="text" class="form-control mt-2" id="task-title" name="title" placeholder="title">
+                            </div>
+                            <div class="form-group">
+                                <label for="task-desc">Description:</label>
+                                <textarea type="textbox" class="form-control mt-2" id="task-desc" name="description" rows="5" placeholder="task description"></textarea>
+                            </div>
+                            <div class="form-group d-flex justify-content-between mt-3">
+                                <a href="{% url 'todo:index' %}" class="btn btn-secondary px-3">Back</a>
+                                <button type="submit" class="btn btn-primary btn-block px-3">Create</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
-
-    <div class="messages">
-        {% for msg in messages %}
-            <div class="msg {{ msg.tags }}" id="msg-{{ forloop.counter }}">
-                <span>
-                    {% if msg.level == DEFAULT_MESSAGE_LEVELS.INFO %}
-                        <i class="fa-solid fa-circle-info"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.SUCCESS %}
-                        <i class="fa-solid fa-thumbs-up"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.WARNING %}
-                        <i class="fa-solid fa-triangle-exclamation"></i>
-                    {% elif msg.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                    {% else %}
-                        <i class="fa-solid fa-circle-info"></i>
-                    {% endif %}
-                </span>
-                <span>{{ msg }}</span>
-                <span onClick="removeMsg('msg-{{ forloop.counter}}')"><i class="fa-solid fa-xmark"></i></span>
-            </div>
-        {% endfor %}
-    </div>
-
-    <div class="content">
-        <form action="{% url 'todo:create' %}" method="post">
-            {% csrf_token %}
-
-            <div class="entry">
-                <label for="title">Title</label>
-                <input type="text" id="title" name="title" required>
-            </div>
-
-            <div class="entry">
-                <label for="description">Description</label>
-                <textarea name="description" id="description" cols="30" rows="10"></textarea>
-            </div>
-
-            <div class="button-pair">
-                <button type="submit" class="button-primary">Create</button>
-                <a href="{% url 'todo:index' %}" class="button-secondary">Back</a>
-            </div>
-        </form>
     </div>
 </div>
 
