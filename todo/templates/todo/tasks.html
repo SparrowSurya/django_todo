@@ -51,8 +51,13 @@
                 </div>
             </div>
         {% endfor %}
+
         {% if tasks|length == 0 %}
-            <p class="text-warning text-center fs-5">You haven&apos;t added any tasks yet!</p>
+            {% if is_search %}
+                <p class="text-warning text-center fs-5">No tasks matched the search</p>
+            {% else %}
+                <p class="text-warning text-center fs-5">You haven&apos;t added any tasks yet!</p>
+            {% endif %}
         {% endif %}
     </div>
 
