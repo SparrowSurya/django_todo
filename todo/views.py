@@ -104,7 +104,7 @@ def create_task(request):
 
 @login_required
 def search_task(request):
-    context = {}
+    context = {'is_search': True}
 
     text = request.GET.get('search').strip()
     tasks = Task.objects.filter(title__contains=text)
